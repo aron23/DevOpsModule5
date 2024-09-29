@@ -20,15 +20,15 @@ pipeline{
         NEXUSPASS = credentials('nexuspass')
     }
     stages{
-        stage('checkout'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/sreenivas449/java-hello-world-with-maven.git']]])
+        stage('Build'){
+            steps {
+                sh 'mvn -s settings.xml -DskipTests install'
             }
-        }
-        stage('build'){
-            steps{
-               bat 'mvn package'
+            post {
+                success {
+                    echo "Now Archiving."
+                    archiveArtifacts artifacts: '**/*.war'
+                }
             }
-        }
     }
 }
