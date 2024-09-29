@@ -20,15 +20,21 @@ pipeline{
         NEXUSPASS = credentials('nexuspass')
     }
     stages{
-        stage('Build'){
-            steps {
-                sh 'mvn -s settings.xml -DskipTests install'
+        stage('checkout'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/aron23/DevOpsModule5.git']]])
             }
-            post {
-                success {
-                    echo "Now Archiving."
-                    archiveArtifacts artifacts: '**/*.war'
-                }
+        }
+        stage('build'){
+            steps{
+               bat 'mvn package'
             }
+			post {
+				success {
+					echo "Now Archiving."
+					archiveArtifacts artifacts: '**/*.war'
+				}
+			}
+        }		
     }
 }
