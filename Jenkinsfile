@@ -35,6 +35,25 @@ pipeline{
 					archiveArtifacts artifacts: '**/*.jar'
 				}
 			}
+        },		
+		stage('UPLOAD ARTIFACT') {
+                steps {
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                        groupId: 'QA',
+                        version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                        repository: "${RELEASE_REPO}",
+                        credentialsId: ${NEXUS_LOGIN},
+                        artifacts: [
+                            [artifactId: 'hello-artifact' ,
+                            classifier: '',
+                            file: 'target/jb-hello-world-maven-0.2.0.jar',
+                            type: 'jar']
+                        ]
+                    )
+                }
         }		
     }
 }
