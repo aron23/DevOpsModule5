@@ -8,7 +8,7 @@ pipeline{
     environment {
         SNAP_REPO = 'vprofile-snapshot'
         NEXUS_USER = 'admin'
-        NEXUS_PASS = 'admin123'
+        NEXUS_PASS = 'nE1x%7U6@o10Lht51FKbw'
         RELEASE_REPO = 'vprofile-release'
         CENTRAL_REPO = 'vpro-maven-central'
         NEXUSIP = 'ec2-3-141-101-144.us-east-2.compute.amazonaws.com'
@@ -17,7 +17,6 @@ pipeline{
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-        NEXUSPASS = credentials('nexuspass')
     }
     stages{
         stage('checkout'){
