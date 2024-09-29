@@ -22,22 +22,25 @@ pipeline{
     stages{
         stage('checkout'){
             steps{
+				echo ">>> checking out"
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/aron23/DevOpsModule5.git']]])
             }
         }
         stage('build'){
             steps{
+			   echo ">>> building"
                bat 'mvn package'
             }
 			post {
 				success {
-					echo "Now Archiving."
+					echo ">>> archiving."
 					archiveArtifacts artifacts: '**/*.jar'
 				}
 			}
         },		
 		stage('UPLOAD ARTIFACT') {
                 steps {
+					echo ">>> uploading"
                     nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'http',
