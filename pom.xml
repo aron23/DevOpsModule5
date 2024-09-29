@@ -5,7 +5,7 @@
     <groupId>com.example</groupId>
     <artifactId>jb-hello-world-maven</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.3</version>
+    <version>0.10.0</version>
 
     <!-- tag::joda[] -->
      <properties>
