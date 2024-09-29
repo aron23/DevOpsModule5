@@ -34,7 +34,7 @@ pipeline{
 					archiveArtifacts artifacts: '**/*.jar'
 				}
 			}
-        },		
+        }
 		stage('UPLOAD ARTIFACT') {
                 steps {
                     nexusArtifactUploader(
